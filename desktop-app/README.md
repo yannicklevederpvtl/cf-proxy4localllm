@@ -66,16 +66,20 @@ More hub/bridge troubleshooting: [main README](../README.md#troubleshooting).
 
 Desktop app **source and binaries are not stored in git**. Builds are published via **GitHub Releases** only.
 
-From a development clone (with `desktop-app/` source):
+GitHub always shows **Source code (zip/tar.gz)** on releases; that cannot be removed. Root `.gitattributes` keeps those archives to install docs only — **download the `.dmg` asset**, not Source code.
+
+From a development clone (with `desktop-app/swift/` source):
 
 ```bash
 chmod +x desktop-app/scripts/*.sh
-./desktop-app/scripts/package-dmg.sh
+./desktop-app/scripts/package-dmg.sh   # Swift universal .app + DMG
 gh release create desktop-v0.1.0 \
   --title "CF Local LLM Bridge 0.1.0" \
   --generate-notes \
   desktop-app/dist/release/CF-Local-LLM-Bridge-0.1.0-macOS.dmg
 ```
+
+Local test without DMG: `./desktop-app/scripts/build-swift.sh` then `open desktop-app/dist/CF\ Local\ LLM\ Bridge.app`
 
 Signed/notarized builds: use your Apple Developer credentials (see `DISTRIBUTION.md` in the dev tree).
 

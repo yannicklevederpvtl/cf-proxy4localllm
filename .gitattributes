@@ -1,0 +1,13 @@
+# GitHub Release "Source code (zip/tar.gz)" uses git archive.
+# Exclude project source; only install docs (README files) remain.
+# UI links cannot be removed — download the .dmg asset, not Source code.
+/.github/ export-ignore
+/.gitignore export-ignore
+/Makefile export-ignore
+agent/ export-ignore
+assets/ export-ignore
+bridge/ export-ignore
+gen/ export-ignore
+hub/ export-ignore
+proto/ export-ignore
+tests/ export-ignore
