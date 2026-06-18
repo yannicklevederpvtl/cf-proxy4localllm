@@ -1,0 +1,8 @@
+---
+# Copy to vars.yml (gitignored) before push:
+#   cp vars.yml.example vars.yml
+#   cf push -f manifest.yml --vars-file vars.yml
+#
+# Or: ./scripts/deploy.sh vars.yml
+cf_domain: apps.example.com
+bridge_token: change-me-use-a-long-random-secret

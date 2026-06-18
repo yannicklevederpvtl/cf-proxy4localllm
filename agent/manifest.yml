@@ -1,0 +1,12 @@
+---
+applications:
+  - name: cf-proxy4localllm-agent
+    path: .
+    memory: 512M
+    disk_quota: 512M
+    instances: 1
+    stack: cflinuxfs4
+    buildpacks:
+      - agent_buildpack
+    services:
+      - local-ollama

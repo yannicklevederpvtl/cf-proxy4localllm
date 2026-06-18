@@ -1,0 +1,22 @@
+# Go
+bin/
+hub/hub
+bridge/bridge
+*.exe
+*.test
+vendor/
+
+# CF deploy secrets
+hub/vars.yml
+bridge/secrets.env
+Notes.txt
+
+.taskmaster/
+
+docs/
+*.excalidraw
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

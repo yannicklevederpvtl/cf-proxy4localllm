@@ -1,0 +1,5 @@
+# Tests and local secrets. Run `make vendor` before cf push (vendor/ is uploaded).
+*_test.go
+*.test
+.git/
+vars.yml

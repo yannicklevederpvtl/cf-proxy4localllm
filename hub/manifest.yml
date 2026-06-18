@@ -1,0 +1,28 @@
+---
+# Cloud Foundry deployment for cf-proxy4localllm hub.
+# From hub/: ./scripts/deploy.sh   OR   make vendor && cf push -f manifest.yml --vars-file vars.yml
+applications:
+  - name: cf-proxy4localllm
+    path: .
+    memory: 256M
+    disk_quota: 512M
+    instances: 1
+    stack: cflinuxfs4
+    buildpacks:
+      - go_buildpack
+    health-check-type: http
+    health-check-http-endpoint: /health
+    timeout: 180
+    env:
+      GO111MODULE: "on"
+      GOPACKAGENAME: github.com/cf-webhook-service/cf-proxy4localllm/hub
+      PROXY_MODEL_ALIAS: local-ollama
+      PROXY_VALIDATE_INBOUND: "false"
+      PROXY_INBOUND_API_KEYS: ""
+      BRIDGE_TOKEN: ((bridge_token))
+    routes:
+      - route: cf-proxy4localllm.apps.((cf_domain))
+      # HTTP/1.1 — GenAI proxy, curl, CF health checks
+      - route: cf-proxy4localllm-grpc.apps.((cf_domain))
+        protocol: http2
+        # gRPC bridge — requires EAR HTTP/2 routing enabled by platform operator

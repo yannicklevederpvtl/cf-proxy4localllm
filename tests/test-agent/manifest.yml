@@ -1,0 +1,16 @@
+---
+applications:
+  - name: cf-proxy4localllm-test-agent
+    path: .
+    memory: 256M
+    disk_quota: 512M
+    instances: 1
+    stack: cflinuxfs4
+    buildpacks:
+      - python_buildpack
+    no-route: true
+    command: python main.py
+    services:
+      - local-ollama
+    health-check-type: process
+    timeout: 300

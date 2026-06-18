@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package llmbridge.v1;
+
+option go_package = "github.com/cf-webhook-service/cf-proxy4localllm/gen/llmbridge/v1;llmbridgev1";
+
+service LlmBridge {
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+  rpc KeepAlive(stream KeepAlivePing) returns (stream KeepAlivePong);
+  // BridgeWork: bridge opens bidi stream; hub sends ChatRequest, bridge returns ChatResponse.
+  rpc BridgeWork(stream ChatResponse) returns (stream ChatRequest);
+  rpc CompleteChat(ChatRequest) returns (ChatResponse);
+  rpc StreamChat(ChatRequest) returns (stream ChatChunk);
+}
+
+message RegisterRequest {
+  string bridge_token = 1;
+  string ollama_base_url = 2;
+  string default_model = 3;
+}
+
+message RegisterResponse {
+  bool accepted = 1;
+  string message = 2;
+}
+
+message KeepAlivePing {
+  int64 timestamp_ms = 1;
+}
+
+message KeepAlivePong {
+  int64 timestamp_ms = 1;
+}
+
+message ChatRequest {
+  string request_id = 1;
+  bytes openai_json_body = 2;
+}
+
+message ChatResponse {
+  bytes openai_json_body = 1;
+  string request_id = 2;
+  bool stream_end = 3;
+}
+
+message ChatChunk {
+  bytes sse_line = 1;
+}
