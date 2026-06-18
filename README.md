@@ -112,7 +112,10 @@ export DEFAULT_MODEL=gpt-4.1-mini
 cd bridge && ./scripts/run-bridge-openai.sh
 ```
 
-## Tanzu AI Services integration
+**macOS desktop app** (no Terminal for daily use):
+
+Download **CF Local LLM Bridge** from [GitHub Releases](https://github.com/yannicklevederpvtl/cf-proxy4localllm/releases) (`desktop-v*` tags). Install the DMG, then Settings → Save → Connect. See [desktop-app/README.md](./desktop-app/README.md).
+
 
 Register the hub as an **off-platform OpenAI-compatible model** in the AI Services tile, then add it to a plan so apps can bind `ai-models`.
 
@@ -169,7 +172,11 @@ curl -X POST https://cf-proxy4localllm.apps.<domain>/openai/v1/chat/completions 
 ```text
 cf-proxy4localllm/
 ├── assets/
-│   └── cf-proxy4localllm.svg
+│   └── cf-proxy4localllm.png
+├── desktop-app/README.md  # CF Local LLM Bridge install guide (app via GitHub Releases)
+├── docs/
+│   ├── FEASIBILITY.md
+│   └── PRD.md
 ├── proto/llmbridge/v1/bridge.proto
 ├── gen/llmbridge/v1/
 ├── hub/          # CF app (Go)

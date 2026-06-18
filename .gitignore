@@ -16,6 +16,10 @@ Notes.txt
 docs/
 *.excalidraw
 
+# Desktop app — user docs only in git; source + binaries via GitHub Releases
+desktop-app/*
+!desktop-app/README.md
+
 # OS / editor
 .DS_Store
 .idea/

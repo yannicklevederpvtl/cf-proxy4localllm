@@ -1,8 +1,10 @@
-// Bridge: local daemon — outbound gRPC client to hub, HTTP to Ollama (Phase 0+).
+// Bridge: local daemon — outbound gRPC client to hub, HTTP to upstream LLM.
 package main
 
 import (
 	"context"
+	"flag"
+	"fmt"
 	"log"
 	"os"
 	"os/signal"
@@ -10,9 +12,27 @@ import (
 	"time"
 )
 
+var bridgeVersion = "0.1.0" // overridden via -ldflags -X main.bridgeVersion=...
+
 func main() {
+	configPath := flag.String("config", "", "path to JSON config file (optional)")
+	showVersion := flag.Bool("version", false, "print version and exit")
+	flag.Parse()
+
+	if *showVersion {
+		fmt.Println("cf-proxy4localllm-bridge", bridgeVersion)
+		return
+	}
+
 	cfg := LoadConfig()
-	log.Printf("cf-proxy4localllm bridge starting hub=%s tls=%v", cfg.HubAddr, cfg.UseTLS)
+	if *configPath != "" {
+		fc, err := loadFileConfig(*configPath)
+		if err != nil {
+			log.Fatalf("load config file: %v", err)
+		}
+		cfg = mergeFileConfig(fc, cfg)
+	}
+	log.Printf("cf-proxy4localllm bridge %s starting hub=%s tls=%v", bridgeVersion, cfg.HubAddr, cfg.UseTLS)
 
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
