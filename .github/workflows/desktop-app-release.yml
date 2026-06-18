@@ -1,6 +1,5 @@
-# Creates a GitHub Release on desktop-v* tags.
-# DMG is built locally (desktop-app source is not in git) and attached with:
-#   gh release create desktop-v0.1.0 ... desktop-app/dist/release/*.dmg
+# Creates a GitHub Release on desktop-v* tags (metadata only).
+# Attach the DMG manually: gh release upload <tag> desktop-app/dist/release/*.dmg
 # See desktop-app/README.md → Releasing (maintainers).
 
 name: desktop-app-release
@@ -22,17 +21,16 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          generate_release_notes: true
+          generate_release_notes: false
           body: |
-            ## CF Local LLM Bridge
+            macOS desktop app for the cf-proxy4localllm laptop bridge.
 
-            Download **`CF-Local-LLM-Bridge-*-macOS.dmg`** from the **Assets** section below.
+            ## Install
 
-            If no DMG is attached yet, a maintainer must build and upload it:
+            1. Download **`CF-Local-LLM-Bridge-*-macOS.dmg`** below.
+            2. Open the DMG and drag **CF Local LLM Bridge** to Applications.
+            3. Open the app → **Settings** → save hub token → **Connect**.
 
-            ```bash
-            ./desktop-app/scripts/package-dmg.sh
-            gh release upload ${{ github.ref_name }} desktop-app/dist/release/*.dmg
-            ```
+            Universal binary (Apple Silicon + Intel). Native SwiftUI app with menu bar status and embedded Go bridge.
 
-            Install and usage: [desktop-app/README.md](https://github.com/${{ github.repository }}/blob/main/desktop-app/README.md)
+            Full setup guide: [desktop-app/README.md](https://github.com/${{ github.repository }}/blob/main/desktop-app/README.md)
