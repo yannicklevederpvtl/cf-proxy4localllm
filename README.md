@@ -4,7 +4,7 @@ Expose a **local or cloud LLM** (Ollama, OpenAI, or any OpenAI-compatible endpoi
 
 ## Architecture
 
-![cf-proxy4localllm architecture](assets/cf-proxy4localllm.svg)
+![cf-proxy4localllm architecture](assets/cf-proxy4localllm.png)
 
 | Component | Runs on | Role |
 |-----------|---------|------|
